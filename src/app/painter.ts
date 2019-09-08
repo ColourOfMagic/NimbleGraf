@@ -1,4 +1,5 @@
 import {Point, Primitive, PrimitiveType} from './model/primitive/primitive.model';
+import {PrimitiveUtil} from './utils/primitive-util';
 
 export class Painter {
   private readonly ctx: CanvasRenderingContext2D;
@@ -19,6 +20,7 @@ export class Painter {
   }
 
   draw(primitives: Primitive[]): void {
+    PrimitiveUtil.logPrimitives(primitives);
     this.clearCanvas();
     this.ctx.beginPath();
     primitives.forEach(p => this.drawPrimitive(p));
