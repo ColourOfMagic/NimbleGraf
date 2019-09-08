@@ -1,14 +1,15 @@
-import {AfterContentInit, Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {CanvasUtilService} from './utils/canvas-util';
 import {Painter} from './painter';
 import {RenderSettings} from './model/base-model';
+import {Primitive, Point} from './model/primitive/primitive.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterContentInit {
+export class AppComponent implements AfterViewInit {
   canvasWidth = 800;
   canvasHeight = 800;
   painter: Painter;
@@ -18,13 +19,19 @@ export class AppComponent implements AfterContentInit {
   constructor(private canvasUtilService: CanvasUtilService) {
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     const mainCanvas = this.canvasUtilService.getCanvas('main_canvas');
     this.painter = new Painter(mainCanvas, this.canvasWidth, this.canvasHeight, this.backgroundColor);
-    window.requestAnimationFrame(() => this.painter.clearCanvas());
+    this.draw();
   }
 
   renderEvent(settings: RenderSettings) {
-    this.painter.draw();
+    this.draw();
+  }
+
+  private draw() {
+    const primitives: Array<Primitive> = [];
+    primitives.push(new Point(10, 10, 10));
+    this.painter.draw(primitives);
   }
 }
