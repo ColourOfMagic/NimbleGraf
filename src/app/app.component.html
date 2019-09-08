@@ -3,9 +3,7 @@
     <canvas id="main_canvas" width="{{canvasWidth}}" height="{{canvasHeight}}"></canvas>
   </div>
 
-  <app-render class="col-sm"></app-render>
+  <app-render class="col-sm" (render)="renderEvent($event)"></app-render>
 </div>
-
-
 
 <router-outlet></router-outlet>

@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {RenderPosition, RenderSettings} from '../../model/base-model';
 
 @Component({
   selector: 'app-render',
@@ -6,7 +7,20 @@ import {Component} from '@angular/core';
 })
 export class RenderPageComponent {
 
-  get output(): string {
-    return 'test output';
+  settings: RenderSettings;
+
+  @Output() render: EventEmitter<RenderSettings> = new EventEmitter();
+
+  constructor() {
+    this.settings = {position: RenderPosition.Front};
   }
+
+  get output(): string {
+    return JSON.stringify(this.settings);
+  }
+
+  execute(): void {
+    this.render.emit(this.settings);
+  }
+
 }
