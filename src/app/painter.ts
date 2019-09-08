@@ -45,6 +45,7 @@ export class Painter {
 
   private drawPoint(point: Point) {
     this.ctx.fillStyle = this.blackColor;
+    this.ctx.moveTo(point.x, point.y);
     this.ctx.arc(point.x, point.y, this.drawWidth, 0, Math.PI * 2, false);
     this.ctx.fill();
   }
