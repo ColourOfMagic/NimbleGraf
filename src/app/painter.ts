@@ -1,6 +1,7 @@
 import {Point, Primitive, PrimitiveType} from './model/primitive/primitive.model';
 import {PrimitiveUtil} from './utils/primitive-util';
 import {PositionedPoint, RenderPosition, RenderSettings} from './model/base-model';
+import {BaseFigure} from './model/figure/base-figure';
 
 export class Painter {
   private readonly ctx: CanvasRenderingContext2D;
@@ -8,7 +9,6 @@ export class Painter {
   private readonly canvasWidth: number;
   private readonly canvasHeight: number;
   private readonly backgroundColor;
-  private readonly blackColor = 'rgb(0, 0, 0)';
   private readonly drawWidth = 3;
 
   constructor(canvas: HTMLCanvasElement, canvasWidth: number, canvasHeight: number, backgroundColor: string) {
@@ -20,10 +20,15 @@ export class Painter {
     this.invertCanvas();
   }
 
-  draw(primitives: Primitive[], settings: RenderSettings): void {
+  draw(figures: BaseFigure[], settings: RenderSettings): void {
+    figures.forEach(figure => this.drawPrimitives(figure.getPrimitives(), settings, figure.color));
+  }
+
+  private drawPrimitives(primitives: Primitive[], settings: RenderSettings, color: string) {
     PrimitiveUtil.logPrimitives(primitives);
     this.clearCanvas();
     this.ctx.beginPath();
+    this.ctx.fillStyle = color;
     primitives.forEach(p => this.drawPrimitive(p, settings));
     this.ctx.stroke();
   }
@@ -46,7 +51,6 @@ export class Painter {
 
   private drawPoint(point3D: Point, position: RenderPosition) {
     const point = this.coordinatePoint(point3D, position);
-    this.ctx.fillStyle = this.blackColor;
     this.ctx.moveTo(point.x, point.y);
     this.ctx.arc(point.x, point.y, this.drawWidth, 0, Math.PI * 2, false);
     this.ctx.fill();

@@ -4,6 +4,7 @@ import {Painter} from './painter';
 import {RenderPosition, RenderSettings} from './model/base-model';
 import {Point} from './model/primitive/primitive.model';
 import {Parallelepiped} from './model/figure/parallelepiped';
+import {BaseFigure} from './model/figure/base-figure';
 
 @Component({
   selector: 'app-root',
@@ -33,8 +34,11 @@ export class AppComponent implements AfterViewInit {
 
   private draw(settings: RenderSettings) {
     const basePoint = new Point(150, 150, 150);
+    const figures: BaseFigure[] = [];
 
     const parallelepiped = new Parallelepiped(basePoint, this.blackColor, 150, 50, 100);
-    this.painter.draw(parallelepiped.getPrimitives(), settings);
+
+    figures.push(parallelepiped);
+    this.painter.draw(figures, settings);
   }
 }
