@@ -5,4 +5,8 @@ import {Component} from '@angular/core';
   templateUrl: 'render-page.component.html'
 })
 export class RenderPageComponent {
+
+  get output(): string {
+    return 'test output';
+  }
 }
