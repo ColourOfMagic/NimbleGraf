@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {CanvasUtilService} from './utils/canvas-util';
 import {Painter} from './painter';
-import {RenderSettings} from './model/base-model';
+import {RenderPosition, RenderSettings} from './model/base-model';
 import {Point} from './model/primitive/primitive.model';
 import {Parallelepiped} from './model/figure/parallelepiped';
 
@@ -21,17 +21,20 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
     this.painter = new Painter(mainCanvas, this.canvasWidth, this.canvasHeight, this.backgroundColor);
-    this.draw();
+    const settings = {
+      position: RenderPosition.Front
+    };
+    this.draw(settings);
   }
 
   renderEvent(settings: RenderSettings) {
-    this.draw();
+    this.draw(settings);
   }
 
-  private draw() {
-    const basePoint = new Point(20, 20, 20);
+  private draw(settings: RenderSettings) {
+    const basePoint = new Point(150, 150, 150);
 
-    const paral = new Parallelepiped(basePoint, this.blackColor, 70, 90, 40);
-    this.painter.draw(paral.getPrimitives());
+    const parallelepiped = new Parallelepiped(basePoint, this.blackColor, 150, 50, 100);
+    this.painter.draw(parallelepiped.getPrimitives(), settings);
   }
 }
