@@ -2,7 +2,7 @@
   <div class="card-body">
     <button type="button" class="btn btn-primary" (click)="execute()">Render!</button>
 
-    <ngb-alert [type]="'secondary'" class="mt-2">
+    <ngb-alert [type]="'secondary'" class="mt-2" [dismissible]="false">
       <strong>Output:</strong> {{output}}
     </ngb-alert>
   </div>
