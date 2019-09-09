@@ -21,12 +21,12 @@ export class Painter {
   }
 
   draw(figures: BaseFigure[], settings: RenderSettings): void {
+    this.clearCanvas();
     figures.forEach(figure => this.drawPrimitives(figure.getPrimitives(), settings, figure.color));
   }
 
   private drawPrimitives(primitives: Primitive[], settings: RenderSettings, color: string) {
     PrimitiveUtil.logPrimitives(primitives);
-    this.clearCanvas();
     this.ctx.beginPath();
     this.ctx.fillStyle = color;
     primitives.forEach(p => this.drawPrimitive(p, settings));
