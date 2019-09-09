@@ -1,4 +1,4 @@
-import {Primitive} from '../primitive/primitive.model';
+import {Line, Point, Primitive} from '../primitive/primitive.model';
 
 export abstract class BaseFigure {
   color: string;
@@ -10,4 +10,12 @@ export abstract class BaseFigure {
   }
 
   abstract getPrimitives(): Primitive[];
+
+  protected addPoint(point: Point): void {
+    this.primitives.push(point);
+  }
+
+  protected addLine(p1: Point, p2: Point): void {
+    this.primitives.push(new Line(p1, p2));
+  }
 }

@@ -1,4 +1,5 @@
-import {Point, Primitive} from '../model/primitive/primitive.model';
+import {Line, Point, Primitive, PrimitiveType} from '../model/primitive/primitive.model';
+import {PositionedLine, PositionedPoint, RenderPosition} from '../model/base-model';
 
 export class PrimitiveUtil {
   static plusX(point: Point, num: number): Point {
@@ -24,5 +25,33 @@ export class PrimitiveUtil {
 
   static logPrimitives(primitives: Primitive[]): void {
     console.log(JSON.stringify(primitives));
+  }
+
+  static coordinatePoint(point: Point, position: RenderPosition): PositionedPoint {
+    switch (position) {
+      case RenderPosition.Front:
+        return {x: point.x, y: point.y};
+      case RenderPosition.Top:
+        return {x: point.x, y: point.z};
+      case RenderPosition.Right:
+        return {x: point.z, y: point.y};
+      default:
+        return {x: 0, y: 0};
+    }
+  }
+
+  static coordinateLine(line: Line, position: RenderPosition): PositionedLine {
+    return {p1: this.coordinatePoint(line.point1, position), p2: this.coordinatePoint(line.point2, position)};
+  }
+
+  static getPoints(primitives: Primitive[]): Point[] {
+    const points: Point[] = [];
+    primitives.forEach(
+      (p) => {
+        if (p.type === PrimitiveType.Point) {
+          points.push(p as Point);
+        }
+      });
+    return points;
   }
 }

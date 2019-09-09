@@ -7,6 +7,11 @@ export interface PositionedPoint {
   y: number;
 }
 
+export interface PositionedLine {
+  p1: PositionedPoint;
+  p2: PositionedPoint;
+}
+
 export enum RenderPosition {
   Front,
   Top,
