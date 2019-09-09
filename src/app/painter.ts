@@ -29,6 +29,7 @@ export class Painter {
     PrimitiveUtil.logPrimitives(primitives);
     this.ctx.beginPath();
     this.ctx.fillStyle = color;
+    this.ctx.strokeStyle = color;
     primitives.forEach(p => this.drawPrimitive(p, settings));
     this.ctx.stroke();
   }
