@@ -5,6 +5,8 @@ import {RenderPosition, RenderSettings} from './model/base-model';
 import {Point} from './model/primitive/primitive.model';
 import {Parallelepiped} from './model/figure/parallelepiped';
 import {BaseFigure} from './model/figure/base-figure';
+import {Cylinder} from './model/figure/cylinder';
+import {PrimitiveUtil} from './utils/primitive-util';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +18,9 @@ export class AppComponent implements AfterViewInit {
   canvasHeight = 800;
   painter: Painter;
 
-  private readonly backgroundColor = 'rgba(255,251,202,0.91)';
+  private readonly backgroundColor = 'rgba(255,251,202,1)';
   private readonly blackColor = 'rgb(0, 0, 0)';
+  private readonly redColor = 'rgb(255,50,33)';
 
   ngAfterViewInit(): void {
     const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
@@ -34,11 +37,14 @@ export class AppComponent implements AfterViewInit {
 
   private draw(settings: RenderSettings) {
     const basePoint = new Point(150, 150, 150);
+    const centerPoint = PrimitiveUtil.plusXYZ(basePoint, 100, 0, 100);
     const figures: BaseFigure[] = [];
 
-    const parallelepiped = new Parallelepiped(basePoint, this.blackColor, 150, 50, 100);
+    const parallelepiped = new Parallelepiped(basePoint, this.blackColor, 200, 200, 350);
+    const cylinder = new Cylinder(centerPoint, this.redColor, 350, 50, 10);
 
     figures.push(parallelepiped);
+    figures.push(cylinder);
     this.painter.draw(figures, settings);
   }
 }
