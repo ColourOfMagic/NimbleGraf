@@ -16,9 +16,16 @@ export class HorizontalCircle extends BaseFigure {
 
   getPrimitives(): Primitive[] {
     const angle = 360 / this.quality;
+    let previousPoint: Point = PrimitiveUtil.moveAroundXZ(this.basePoint, this.radius, 0);
+    let currentPoint: Point = null;
+
     for (let i = 0; i < 360; i += angle) {
-      this.primitives.push(PrimitiveUtil.moveAroundXZ(this.basePoint, this.radius, i));
+      currentPoint = PrimitiveUtil.moveAroundXZ(this.basePoint, this.radius, i);
+      this.primitives.push(currentPoint);
+      this.addLine(previousPoint, currentPoint);
+      previousPoint = currentPoint;
     }
+    this.addLine(currentPoint, PrimitiveUtil.moveAroundXZ(this.basePoint, this.radius, 0));
     return this.primitives;
   }
 }

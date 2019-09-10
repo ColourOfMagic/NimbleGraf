@@ -21,8 +21,18 @@ export class Cylinder extends BaseFigure {
     const bottomCircle = new HorizontalCircle(this.basePoint, this.color, this.radius, this.quality);
     const topCircle = new HorizontalCircle(PrimitiveUtil.plusY(this.basePoint, this.height), this.color, this.radius, this.quality);
 
+    this.addLines(bottomCircle, topCircle);
     bottomCircle.getPrimitives().forEach(p => this.primitives.push(p));
     topCircle.getPrimitives().forEach(p => this.primitives.push(p));
     return this.primitives;
+  }
+
+  private addLines(bottomCircle: HorizontalCircle, topCircle: HorizontalCircle) {
+    const points1 = PrimitiveUtil.getPoints(bottomCircle.getPrimitives());
+    const points2 = PrimitiveUtil.getPoints(topCircle.getPrimitives());
+
+    for (let i = 0; i < points1.length; i++) {
+      this.addLine(points1[i], points2[i]);
+    }
   }
 }
