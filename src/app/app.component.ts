@@ -20,7 +20,7 @@ export class AppComponent implements AfterViewInit {
 
   private readonly backgroundColor = 'rgba(255,251,202,1)';
   private readonly blackColor = 'rgb(0, 0, 0)';
-  private readonly redColor = 'rgb(255,50,33)';
+  private readonly cylinderColor = 'rgb(101,255,110)';
 
   ngAfterViewInit(): void {
     const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
