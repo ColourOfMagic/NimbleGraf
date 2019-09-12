@@ -14,6 +14,10 @@ export class Point extends Primitive {
     this.y = y;
     this.z = z;
   }
+
+  toArray() {
+    return [this.x, this.y, this.z];
+  }
 }
 
 export class Line extends Primitive {

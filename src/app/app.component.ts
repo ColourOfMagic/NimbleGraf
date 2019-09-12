@@ -25,9 +25,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
     this.painter = new Painter(mainCanvas, this.canvasWidth, this.canvasHeight, this.backgroundColor);
-    const settings = {
-      position: RenderPosition.Front
-    };
+    const settings = {position: RenderPosition.Front, angleX: 0};
     this.draw(settings);
   }
 
@@ -41,7 +39,7 @@ export class AppComponent implements AfterViewInit {
     const figures: BaseFigure[] = [];
 
     const parallelepiped = new Parallelepiped(basePoint, this.blackColor, 200, 200, 350);
-    const cylinder = new Cylinder(centerPoint, this.redColor, 350, 50, 10);
+    const cylinder = new Cylinder(centerPoint, this.cylinderColor, 350, 50, 10);
 
     figures.push(parallelepiped);
     figures.push(cylinder);

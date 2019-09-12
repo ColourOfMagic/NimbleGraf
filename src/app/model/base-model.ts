@@ -1,5 +1,6 @@
 export interface RenderSettings {
   position: RenderPosition;
+  angleX: number;
 }
 
 export interface PositionedPoint {

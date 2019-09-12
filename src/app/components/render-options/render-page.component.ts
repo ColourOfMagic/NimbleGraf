@@ -12,7 +12,7 @@ export class RenderPageComponent {
   @Output() render: EventEmitter<RenderSettings> = new EventEmitter();
 
   constructor() {
-    this.settings = {position: RenderPosition.Front};
+    this.settings = {position: RenderPosition.Front, angleX: 0};
   }
 
   get output(): string {
