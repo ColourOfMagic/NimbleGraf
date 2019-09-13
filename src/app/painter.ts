@@ -53,7 +53,7 @@ export class Painter {
   }
 
   private drawPoint(point3D: Point, settings: RenderSettings) {
-    const point = PrimitiveUtil.coordinatePoint(RotateUtil.rotateX(point3D, settings.angleX), settings.position);
+    const point = PrimitiveUtil.coordinatePoint(RotateUtil.rotatePoint(point3D, settings.angles), settings.position);
     this.ctx.moveTo(point.x, point.y);
     this.ctx.arc(point.x, point.y, this.drawWidth, 0, Math.PI * 2, false);
     this.ctx.fill();
@@ -64,7 +64,7 @@ export class Painter {
   }
 
   private drawLine(line3D: Line, settings: RenderSettings) {
-    const line = PrimitiveUtil.coordinateLine(RotateUtil.rotateLineX(line3D, settings.angleX), settings.position);
+    const line = PrimitiveUtil.coordinateLine(RotateUtil.rotateLine(line3D, settings.angles), settings.position);
     this.ctx.moveTo(line.p1.x, line.p1.y);
     this.ctx.lineTo(line.p2.x, line.p2.y);
   }

@@ -1,6 +1,6 @@
 export interface RenderSettings {
   position: RenderPosition;
-  angleX: number;
+  angles: AxisRotate;
 }
 
 export interface PositionedPoint {
@@ -17,4 +17,10 @@ export enum RenderPosition {
   Front,
   Top,
   Right
+}
+
+export interface AxisRotate {
+  angleX: number;
+  angleY: number;
+  angleZ: number;
 }
