@@ -17,6 +17,7 @@ export class AppComponent implements AfterViewInit {
   canvasWidth = 800;
   canvasHeight = 800;
   painter: Painter;
+  settings = {position: RenderPosition.Front, angles: {angleX: 9, angleY: 15, angleZ: 2}};
 
   private readonly backgroundColor = 'rgba(255,251,202,1)';
   private readonly parallelepipedColor = 'rgb(226,70,94)';
@@ -25,8 +26,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
     this.painter = new Painter(mainCanvas, this.canvasWidth, this.canvasHeight, this.backgroundColor);
-    const settings = {position: RenderPosition.Front, angles: {angleX: 0, angleY: 0, angleZ: 0}};
-    this.draw(settings);
+    this.draw(this.settings);
   }
 
   renderEvent(settings: RenderSettings) {
