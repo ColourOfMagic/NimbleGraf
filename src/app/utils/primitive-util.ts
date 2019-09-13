@@ -1,5 +1,5 @@
 import {Line, Point, Primitive, PrimitiveType} from '../model/primitive/primitive.model';
-import {PositionedLine, PositionedPoint, RenderPosition} from '../model/base-model';
+import {PositionedLine, PositionedPoint, Position, RenderPosition} from '../model/base-model';
 
 export class PrimitiveUtil {
   static plusX(point: Point, num: number): Point {
@@ -27,13 +27,18 @@ export class PrimitiveUtil {
     console.log(JSON.stringify(primitives));
   }
 
-  static coordinatePoint(point: Point, position: RenderPosition): PositionedPoint {
+  static coordinatePoint(point: Point, renderPosition: RenderPosition): PositionedPoint {
+    const offset = renderPosition.offset;
+    return this.makeFlat(this.plusXYZ(point, offset.x, offset.y, offset.z), renderPosition.position);
+  }
+
+  static makeFlat(point: Point, position: Position): PositionedPoint {
     switch (position) {
-      case RenderPosition.Front:
+      case Position.Front:
         return {x: point.x, y: point.y};
-      case RenderPosition.Top:
+      case Position.Top:
         return {x: point.x, y: point.z};
-      case RenderPosition.Right:
+      case Position.Right:
         return {x: point.z, y: point.y};
       default:
         return {x: 0, y: 0};

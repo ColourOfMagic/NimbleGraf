@@ -1,5 +1,7 @@
+import {Point} from './primitive/primitive.model';
+
 export interface RenderSettings {
-  position: RenderPosition;
+  renderPosition: RenderPosition;
   angles: AxisRotate;
 }
 
@@ -13,7 +15,12 @@ export interface PositionedLine {
   p2: PositionedPoint;
 }
 
-export enum RenderPosition {
+export class RenderPosition {
+  position: Position;
+  offset: Point;
+}
+
+export enum Position {
   Front,
   Top,
   Right

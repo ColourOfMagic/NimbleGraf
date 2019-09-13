@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {CanvasUtilService} from './utils/canvas-util';
 import {Painter} from './painter';
-import {RenderPosition, RenderSettings} from './model/base-model';
+import {Position, RenderSettings} from './model/base-model';
 import {Point} from './model/primitive/primitive.model';
 import {Parallelepiped} from './model/figure/parallelepiped';
 import {BaseFigure} from './model/figure/base-figure';
@@ -17,7 +17,13 @@ export class AppComponent implements AfterViewInit {
   canvasWidth = 800;
   canvasHeight = 800;
   painter: Painter;
-  settings = {position: RenderPosition.Front, angles: {angleX: 9, angleY: 15, angleZ: 2}};
+  settings: RenderSettings = {
+    renderPosition: {
+      position: Position.Front,
+      offset: new Point(150, 150, 150)
+    },
+    angles: {angleX: 9, angleY: 15, angleZ: 2}
+  };
 
   private readonly backgroundColor = 'rgba(255,251,202,1)';
   private readonly parallelepipedColor = 'rgb(226,70,94)';
@@ -33,10 +39,8 @@ export class AppComponent implements AfterViewInit {
     this.draw(settings);
   }
 
-  // TODO: add offset
-
   private draw(settings: RenderSettings) {
-    const basePoint = new Point(150, 150, 150);
+    const basePoint = new Point(5, 5, 5);
     const centerPoint = PrimitiveUtil.plusXYZ(basePoint, 100, 0, 100);
     const figures: BaseFigure[] = [];
 
