@@ -32,7 +32,7 @@ export class Parallelepiped extends BaseFigure {
     const points1 = PrimitiveUtil.getPoints(rect1.getPrimitives());
     const points2 = PrimitiveUtil.getPoints(rect2.getPrimitives());
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       this.addLine(points1[i], points2[i]);
     }
   }
