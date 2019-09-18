@@ -26,6 +26,40 @@
       </label>
     </div>
     <hr>
+    <div class="container" style="max-width: 600px">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card bg-light" style="max-width: 10rem;">
+            <div class="card-header">Rotate X</div>
+            <div class="card-body">
+              <button type="button" class="btn btn-primary m-2" (click)="move(0,1)">↑</button>
+              <button type="button" class="btn btn-primary m-2" (click)="move(0,-1)">↓</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card bg-light" style="max-width: 10rem;">
+            <div class="card-header">Rotate Y</div>
+            <div class="card-body">
+              <button type="button" class="btn btn-primary m-2" (click)="move(1,1)">↑</button>
+              <button type="button" class="btn btn-primary m-2" (click)="move(1,-1)">↓</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card bg-light" style="max-width: 10rem;">
+            <div class="card-header">Rotate Z</div>
+            <div class="card-body">
+              <button type="button" class="btn btn-primary m-2" (click)="move(2,1)">↑</button>
+              <button type="button" class="btn btn-primary m-2" (click)="move(2,-1)">↓</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <hr>
     <button type="button" class="btn btn-primary" (click)="execute()">Render!</button>
 
     <ngb-alert [type]="'secondary'" class="mt-2" [dismissible]="false">
