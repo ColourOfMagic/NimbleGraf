@@ -1,12 +1,14 @@
+import * as math from 'mathjs';
+
 export abstract class Primitive {
   abstract readonly type: PrimitiveType;
 }
 
 export class Point extends Primitive {
   type = PrimitiveType.Point;
-  readonly x: number;
-  readonly y: number;
-  readonly z: number;
+  x: number;
+  y: number;
+  z: number;
 
   constructor(x: number, y: number, z: number) {
     super();
@@ -15,8 +17,17 @@ export class Point extends Primitive {
     this.z = z;
   }
 
+  static toPoint(array: number[]): Point {
+    const w = array[3];
+    return new Point(array[0] / w, array[1] / w, array[2] / w);
+  }
+
   toArray() {
     return [this.x, this.y, this.z];
+  }
+
+  toLibMatrix() {
+    return math.matrix([this.x, this.y, this.z, 1]);
   }
 }
 

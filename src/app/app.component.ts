@@ -20,9 +20,41 @@ export class AppComponent implements AfterViewInit {
   settings: RenderSettings = {
     renderPosition: {
       position: Position.Front,
-      offset: new Point(150, 150, 150)
+      offset: new Point(0, 0, 0),
+      basePoint: new Point(0, 0, 0)
     },
-    angles: {angleX: 9, angleY: 15, angleZ: 2}
+    angles: {angleX: 0, angleY: 0, angleZ: 0},
+    modelSettings: {
+      height: 350,
+      width: 200,
+      length: 200,
+      cylinderRadius: 50,
+      quality: 20
+    },
+    transferParameters: {
+      x: 400,
+      y: 400,
+      z: 400
+    },
+    scalingParameters: {
+      x: 1,
+      y: 1,
+      z: 1
+    },
+    axonometricParameters: {
+      use: false,
+      psi: 45,
+      varphi: 45
+    },
+    obliqueParameters: {
+      use: false,
+      l: 0.5,
+      alpha: 15
+    },
+    perspectiveParameters: {
+      use: false,
+      d: -100
+    }
   };
 
   private readonly backgroundColor = 'rgba(255,251,202,1)';
@@ -40,15 +72,16 @@ export class AppComponent implements AfterViewInit {
   }
 
   private draw(settings: RenderSettings) {
-    const basePoint = new Point(5, 5, 5);
-    const centerPoint = PrimitiveUtil.plusXYZ(basePoint, 100, 0, 100);
+    const basePoint = settings.renderPosition.basePoint;
+    const model = settings.modelSettings;
+    const centerPoint = PrimitiveUtil.plusXYZ(basePoint, model.length / 2, 0, model.width / 2);
     const figures: BaseFigure[] = [];
 
-    const parallelepiped = new Parallelepiped(basePoint, this.parallelepipedColor, 200, 200, 350);
-    const cylinder = new Cylinder(centerPoint, this.cylinderColor, 350, 50, 10);
+    const parallelepiped = new Parallelepiped(basePoint, this.parallelepipedColor, model.length, model.width, model.height);
+    const cylinder = new Cylinder(centerPoint, this.cylinderColor, model.height, model.cylinderRadius, model.quality);
 
-    figures.push(parallelepiped);
     figures.push(cylinder);
+    figures.push(parallelepiped);
     this.painter.draw(figures, settings);
   }
 }

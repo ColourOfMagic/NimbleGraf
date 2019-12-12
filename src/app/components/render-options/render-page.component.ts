@@ -1,14 +1,26 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {RenderSettings} from '../../model/base-model';
 
 @Component({
   selector: 'app-render',
   templateUrl: 'render-page.component.html'
 })
-export class RenderPageComponent {
+export class RenderPageComponent implements OnChanges {
 
   @Input() settings: RenderSettings;
   @Output() render: EventEmitter<RenderSettings> = new EventEmitter();
+  rotateStep: number;
+
+  // Panels
+  public rotatePanel = false;
+
+  constructor() {
+    this.rotateStep = 4;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.warn('!!!!111');
+  }
 
   get output(): string {
     return JSON.stringify(this.settings);
@@ -19,7 +31,7 @@ export class RenderPageComponent {
   }
 
   move(dir: Axes, multiplier: number) {
-    const step = multiplier * 5;
+    const step = multiplier * this.rotateStep;
     switch (dir) {
       case Axes.X:
         this.settings.angles.angleX += step;

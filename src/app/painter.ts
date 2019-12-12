@@ -2,7 +2,7 @@ import {Line, Point, Primitive, PrimitiveType} from './model/primitive/primitive
 import {PrimitiveUtil} from './utils/primitive-util';
 import {RenderSettings} from './model/base-model';
 import {BaseFigure} from './model/figure/base-figure';
-import {RotateUtil} from './utils/rotate-util';
+import {TransformUtil} from './utils/transform-util';
 
 export class Painter {
   private readonly ctx: CanvasRenderingContext2D;
@@ -53,14 +53,14 @@ export class Painter {
   }
 
   private drawPoint(point3D: Point, settings: RenderSettings) {
-    const point = PrimitiveUtil.coordinatePoint(RotateUtil.rotatePoint(point3D, settings.angles), settings.renderPosition);
+    const point = PrimitiveUtil.coordinatePoint(TransformUtil.transform(point3D, settings), settings.renderPosition);
     this.ctx.moveTo(point.x, point.y);
     this.ctx.arc(point.x, point.y, this.drawWidth, 0, Math.PI * 2, false);
     this.ctx.fill();
   }
 
   private drawLine(line3D: Line, settings: RenderSettings) {
-    const line = PrimitiveUtil.coordinateLine(RotateUtil.rotateLine(line3D, settings.angles), settings.renderPosition);
+    const line = PrimitiveUtil.coordinateLine(TransformUtil.transformLine(line3D, settings), settings.renderPosition);
     this.ctx.moveTo(line.p1.x, line.p1.y);
     this.ctx.lineTo(line.p2.x, line.p2.y);
   }

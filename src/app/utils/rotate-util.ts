@@ -38,7 +38,7 @@ export class RotateUtil {
     return new Line(this.rotatePoint(line.point1, rotate), this.rotatePoint(line.point2, rotate));
   }
 
-  private static toRadAngle(angle: number): number {
+  static toRadAngle(angle: number): number {
     return -angle * Math.PI / 180;
   }
 

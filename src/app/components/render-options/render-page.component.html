@@ -1,6 +1,8 @@
 <div class="card">
+  <div class="card-header">
+    Settings
+  </div>
   <div class="card-body">
-
     <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
          [(ngModel)]="settings.renderPosition.position">
       <label ngbButtonLabel class="btn-primary">
@@ -13,53 +15,126 @@
         <input ngbButton type="radio" [value]="2"> Right
       </label>
     </div>
-
+    <hr>
     <div class="mt-2">
-      <label>
-        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleX"/>
-      </label>
-      <label>
-        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleY"/>
-      </label>
-      <label>
-        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleZ"/>
-      </label>
+      Panels:
+      <button type="button" class="btn btn-primary m-2" (click)="rotatePanel = !rotatePanel">Rotate</button>
+      <button type="button" class="btn btn-primary m-2"
+              (click)="settings.perspectiveParameters.use = !settings.perspectiveParameters.use">Perspective
+      </button>
+
     </div>
     <hr>
-    <div class="container" style="max-width: 600px">
-      <div class="row">
-        <div class="col-sm">
-          <div class="card bg-light" style="max-width: 10rem;">
-            <div class="card-header">Rotate X</div>
-            <div class="card-body">
-              <button type="button" class="btn btn-primary m-2" (click)="move(0,1)">↑</button>
-              <button type="button" class="btn btn-primary m-2" (click)="move(0,-1)">↓</button>
+    <h4>Figure Settings</h4>
+    <div class="mt-2">
+      <span class="mr-2">Model Settings:</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.modelSettings.width"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.modelSettings.height"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.modelSettings.length"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.modelSettings.cylinderRadius"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.modelSettings.quality"
+               (ngModelChange)="execute()"/>
+      </label>
+    </div>
+    <div class="mt-2">
+      <span class="mr-2">Base Point:</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.basePoint.x"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.basePoint.y"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.basePoint.z"
+               (ngModelChange)="execute()"/>
+      </label>
+    </div>
+    <div class="mt-2">
+      <span class="mr-2">Offset</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.offset.x"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.offset.y"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.renderPosition.offset.z"
+               (ngModelChange)="execute()"/>
+      </label>
+    </div>
+    <div class="mt-2">
+      <span class="mr-2">Rotate (x,y,z)</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleX" (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleY" (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.angles.angleZ" (ngModelChange)="execute()"/>
+      </label>
+    </div>
+    <div *ngIf="rotatePanel">
+      <hr>
+      <div class="container" style="max-width: 600px">
+        <div class="row">
+          <div class="col-sm">
+            <div class="card bg-light" style="max-width: 10rem;">
+              <div class="card-header">Rotate X</div>
+              <div class="card-body">
+                <button type="button" class="btn btn-primary m-2" (click)="move(0,1)">↑</button>
+                <button type="button" class="btn btn-primary m-2" (click)="move(0,-1)">↓</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm">
-          <div class="card bg-light" style="max-width: 10rem;">
-            <div class="card-header">Rotate Y</div>
-            <div class="card-body">
-              <button type="button" class="btn btn-primary m-2" (click)="move(1,1)">↑</button>
-              <button type="button" class="btn btn-primary m-2" (click)="move(1,-1)">↓</button>
+          <div class="col-sm">
+            <div class="card bg-light" style="max-width: 10rem;">
+              <div class="card-header">Rotate Y</div>
+              <div class="card-body">
+                <button type="button" class="btn btn-primary m-2" (click)="move(1,1)">↑</button>
+                <button type="button" class="btn btn-primary m-2" (click)="move(1,-1)">↓</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm">
-          <div class="card bg-light" style="max-width: 10rem;">
-            <div class="card-header">Rotate Z</div>
-            <div class="card-body">
-              <button type="button" class="btn btn-primary m-2" (click)="move(2,1)">↑</button>
-              <button type="button" class="btn btn-primary m-2" (click)="move(2,-1)">↓</button>
+          <div class="col-sm">
+            <div class="card bg-light" style="max-width: 10rem;">
+              <div class="card-header">Rotate Z</div>
+              <div class="card-body">
+                <button type="button" class="btn btn-primary m-2" (click)="move(2,1)">↑</button>
+                <button type="button" class="btn btn-primary m-2" (click)="move(2,-1)">↓</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-
+      <hr>
     </div>
-    <hr>
+    <div *ngIf="settings.perspectiveParameters.use">
+      <hr>
+      <span class="mr-2">D:</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters.d"
+               (ngModelChange)="execute()"/>
+      </label>
+      <hr>
+    </div>
     <button type="button" class="btn btn-primary" (click)="execute()">Render!</button>
 
     <ngb-alert [type]="'secondary'" class="mt-2" [dismissible]="false">
