@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {RenderSettings} from '../../model/base-model';
 
 @Component({
   selector: 'app-render',
   templateUrl: 'render-page.component.html'
 })
-export class RenderPageComponent implements OnChanges {
+export class RenderPageComponent {
 
   @Input() settings: RenderSettings;
   @Output() render: EventEmitter<RenderSettings> = new EventEmitter();
@@ -13,17 +13,24 @@ export class RenderPageComponent implements OnChanges {
 
   // Panels
   public rotatePanel = false;
+  public scalingPanel = false;
 
   constructor() {
     this.rotateStep = 4;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.warn('!!!!111');
-  }
-
   get output(): string {
     return JSON.stringify(this.settings);
+  }
+
+  get commonScale(): number {
+    return this.settings.scalingParameters.x;
+  }
+
+  set commonScale(num: number) {
+    this.settings.scalingParameters.x = num;
+    this.settings.scalingParameters.y = num;
+    this.settings.scalingParameters.z = num;
   }
 
   execute(): void {

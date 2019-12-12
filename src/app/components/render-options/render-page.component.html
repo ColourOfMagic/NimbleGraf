@@ -16,13 +16,25 @@
       </label>
     </div>
     <hr>
-    <div class="mt-2">
+    <div class="mt-2" (click)="execute()">
       Panels:
-      <button type="button" class="btn btn-primary m-2" (click)="rotatePanel = !rotatePanel">Rotate</button>
-      <button type="button" class="btn btn-primary m-2"
+      <button type="button" class="btn m-2" (click)="rotatePanel = !rotatePanel"
+              [class.btn-primary]="rotatePanel">Rotate
+      </button>
+      <button type="button" class="btn m-2" [class.btn-primary]="settings.perspectiveParameters.use"
               (click)="settings.perspectiveParameters.use = !settings.perspectiveParameters.use">Perspective
       </button>
-
+      <button type="button" class="btn m-2" (click)="scalingPanel = !scalingPanel"
+              [class.btn-primary]="scalingPanel">Scaling
+      </button>
+      <button type="button" class="btn m-2"
+              (click)="settings.axonometricParameters.use = !settings.axonometricParameters.use"
+              [class.btn-primary]="settings.axonometricParameters.use">Axonometric
+      </button>
+      <button type="button" class="btn m-2"
+              (click)="settings.obliqueParameters.use = !settings.obliqueParameters.use"
+              [class.btn-primary]="settings.obliqueParameters.use">Oblique
+      </button>
     </div>
     <hr>
     <h4>Figure Settings</h4>
@@ -80,6 +92,21 @@
       </label>
     </div>
     <div class="mt-2">
+      <span class="mr-2">Transfer</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.transferParameters.x"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.transferParameters.y"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.transferParameters.z"
+               (ngModelChange)="execute()"/>
+      </label>
+    </div>
+    <div class="mt-2">
       <span class="mr-2">Rotate (x,y,z)</span>
       <label>
         <input type="number" class="form-control" [(ngModel)]="settings.angles.angleX" (ngModelChange)="execute()"/>
@@ -131,6 +158,59 @@
       <span class="mr-2">D:</span>
       <label>
         <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters.d"
+               (ngModelChange)="execute()"/>
+      </label>
+      <hr>
+    </div>
+    <div>
+
+    </div>
+    <div *ngIf="scalingPanel">
+      <hr>
+      Scaling
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.scalingParameters.x"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.scalingParameters.y"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.scalingParameters.z"
+               (ngModelChange)="execute()"/>
+      </label>
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Common</span>
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="commonScale" (ngModelChange)="execute()">
+      </div>
+      <hr>
+    </div>
+
+    <div *ngIf="settings.axonometricParameters.use">
+      <hr>
+      Axonometric
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.axonometricParameters.varphi"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.axonometricParameters.psi"
+               (ngModelChange)="execute()"/>
+      </label>
+      <hr>
+    </div>
+    <div *ngIf="settings.obliqueParameters.use">
+      <hr>
+      Oblique
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.obliqueParameters.l"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.obliqueParameters.alpha"
                (ngModelChange)="execute()"/>
       </label>
       <hr>

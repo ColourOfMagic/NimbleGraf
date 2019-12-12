@@ -32,9 +32,9 @@ export class AppComponent implements AfterViewInit {
       quality: 20
     },
     transferParameters: {
-      x: 400,
-      y: 400,
-      z: 400
+      x: 200,
+      y: 200,
+      z: 200
     },
     scalingParameters: {
       x: 1,

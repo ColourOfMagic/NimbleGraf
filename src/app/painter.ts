@@ -10,7 +10,7 @@ export class Painter {
   private readonly canvasWidth: number;
   private readonly canvasHeight: number;
   private readonly backgroundColor;
-  private readonly drawWidth = 3;
+  private readonly drawWidth = 2;
 
   constructor(canvas: HTMLCanvasElement, canvasWidth: number, canvasHeight: number, backgroundColor: string) {
     this.ctx = canvas.getContext('2d');
