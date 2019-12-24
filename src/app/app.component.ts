@@ -54,6 +54,12 @@ export class AppComponent implements AfterViewInit {
     perspectiveParameters: {
       use: false,
       d: -100
+    },
+    perspectiveParameters1: {
+      use: false,
+      p: 0,
+      o: 0,
+      f: 0
     }
   };
 

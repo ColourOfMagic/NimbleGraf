@@ -9,6 +9,7 @@ export interface RenderSettings {
   axonometricParameters: AxonometricParameters;
   obliqueParameters: ObliqueParameters;
   perspectiveParameters: PerspectiveParameters;
+  perspectiveParameters1: PerspectiveParameters2;
 }
 
 export interface PositionedPoint {
@@ -75,3 +76,11 @@ export interface PerspectiveParameters {
   use: boolean;
   d: number;
 }
+
+export interface PerspectiveParameters2 {
+  use: boolean;
+  f: number;
+  o: number;
+  p: number;
+}
+

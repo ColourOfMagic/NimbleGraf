@@ -24,6 +24,9 @@
       <button type="button" class="btn m-2" [class.btn-primary]="settings.perspectiveParameters.use"
               (click)="settings.perspectiveParameters.use = !settings.perspectiveParameters.use">Perspective
       </button>
+      <button type="button" class="btn m-2" [class.btn-primary]="settings.perspectiveParameters1.use"
+              (click)="settings.perspectiveParameters1.use = !settings.perspectiveParameters1.use">Perspective2
+      </button>
       <button type="button" class="btn m-2" (click)="scalingPanel = !scalingPanel"
               [class.btn-primary]="scalingPanel">Scaling
       </button>
@@ -158,6 +161,23 @@
       <span class="mr-2">D:</span>
       <label>
         <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters.d"
+               (ngModelChange)="execute()"/>
+      </label>
+      <hr>
+    </div>
+    <div *ngIf="settings.perspectiveParameters1.use">
+      <hr>
+      <span class="mr-2">...</span>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters1.o"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters1.f"
+               (ngModelChange)="execute()"/>
+      </label>
+      <label>
+        <input type="number" class="form-control" [(ngModel)]="settings.perspectiveParameters1.p"
                (ngModelChange)="execute()"/>
       </label>
       <hr>

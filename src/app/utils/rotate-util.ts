@@ -39,7 +39,7 @@ export class RotateUtil {
   }
 
   static toRadAngle(angle: number): number {
-    return -angle * Math.PI / 180;
+    return angle * Math.PI / 180;
   }
 
   static multiple(m1, m2) {

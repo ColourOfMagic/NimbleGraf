@@ -2,7 +2,7 @@ import {Line, Point} from '../model/primitive/primitive.model';
 import {
   AxonometricParameters,
   ObliqueParameters,
-  PerspectiveParameters,
+  PerspectiveParameters, PerspectiveParameters2,
   RenderSettings,
   ScalingParameters,
   TransferParameters
@@ -18,6 +18,7 @@ export class TransformUtil {
     result = this.scaling(result, settings.scalingParameters);
     result = this.processAxonometric(result, settings.axonometricParameters);
     result = this.processOblique(result, settings.obliqueParameters);
+    result = this.processPerspective2(result, settings.perspectiveParameters1);
     result = this.processPerspective(result, settings.perspectiveParameters);
     return result;
   }
@@ -85,8 +86,37 @@ export class TransformUtil {
     const perspectiveMatrix = math.matrix([
       [1, 0, 0, 0],
       [0, 1, 0, 0],
-      [0, 0, 1, 1 / param.d ],
+      [0, 0, 1, 1 / param.d],
       [0, 0, 0, 0]
+    ]);
+    let resultPoint: Point = null;
+    if (param.use) {
+      const resultMatrix = math.multiply(point.toLibMatrix(), perspectiveMatrix);
+      resultPoint = Point.toPoint(resultMatrix._data);
+    } else {
+      resultPoint = point;
+    }
+    return resultPoint;
+  }
+
+  static processPerspective2(point: Point, param: PerspectiveParameters2): Point {
+    const o = RotateUtil.toRadAngle(param.o);
+    const f = RotateUtil.toRadAngle(param.f);
+    // [-Math.sin(o), -Math.cos(f) * Math.cos(o), -Math.sin(f) * Math.cos(o), 0], - wtf ????
+    //   [Math.cos(o), -Math.cos(f) * Math.sin(o), -Math.sin(f) * Math.cos(o), 0],
+    //   [0, Math.sin(f), -Math.cos(f), 0],
+    //   [0, 0, param.p, 0]
+
+    // [Math.cos(o), -Math.cos(f) * Math.sin(o), -Math.sin(f) * Math.sin(o), 0],
+    //   [Math.sin(o), Math.cos(f) * Math.cos(o), Math.sin(f) * Math.cos(o), 0],
+    //   [0, Math.sin(f), -Math.cos(f), 0],
+    //   [0, 0, param.p, 1]
+
+    const perspectiveMatrix = math.matrix([
+      [-Math.sin(o), -Math.cos(f) * Math.cos(o), -Math.sin(f) * Math.cos(o), 0],
+      [Math.cos(o), -Math.cos(f) * Math.sin(o), -Math.sin(f) * Math.sin(o), 0],
+      [0, Math.sin(f), -Math.cos(f), 0],
+      [0, 0, param.p, 1]
     ]);
     let resultPoint: Point = null;
     if (param.use) {
