@@ -1,22 +1,32 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
 import {RenderSettings} from '../../model/base-model';
+import {MotionService, Shift} from '../../service/motion.service';
+import {CanvasUtilService} from '../../utils/canvas-util';
 
 @Component({
   selector: 'app-render',
   templateUrl: 'render-page.component.html'
 })
-export class RenderPageComponent {
+export class RenderPageComponent implements AfterViewInit {
 
   @Input() settings: RenderSettings;
   @Output() render: EventEmitter<RenderSettings> = new EventEmitter();
-  rotateStep: number;
 
   // Panels
   public rotatePanel = false;
   public scalingPanel = false;
 
-  constructor() {
-    this.rotateStep = 4;
+  private rotateStep = 4;
+  private motionService: MotionService;
+
+  ngAfterViewInit(): void {
+    const mainCanvas = CanvasUtilService.getCanvas('main_canvas');
+    this.motionService = new MotionService(mainCanvas, 0.1);
+    this.motionService.changed.subscribe((shift: Shift) => {
+      this.settings.angles.angleY += shift.y;
+      this.settings.angles.angleX += shift.x;
+      this.execute();
+    });
   }
 
   get output(): string {
